@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
-import { Info, MessageSquare, ChartBar, MoreHorizontal } from "lucide-react";
+import { Info, MessageSquare, ChartBar } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProfileTabs from "@/components/ProfileTabs";
@@ -76,6 +76,8 @@ const BusinessLayout = () => {
         <ProfileTabs 
           businessId={businessId || ""} 
           tabs={tabs} 
+          activeTab={activeTab}
+          onTabChange={handleTabChange}
         />
         <div className="py-6">
           <Outlet />
