@@ -1,0 +1,126 @@
+
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { PlusCircle } from "lucide-react";
+import NavBar from "@/components/NavBar";
+import BusinessCard from "@/components/BusinessCard";
+import LoadingSpinner from "@/components/LoadingSpinner";
+import EmptyState from "@/components/EmptyState";
+import { Button } from "@/components/ui/button";
+
+// Mock data for business profiles
+const mockBusinessProfiles = [
+  {
+    id: "1",
+    name: "Vyapar Store Bangalore",
+    address: "123 MG Road, Bangalore, Karnataka",
+    rating: 4.7,
+    imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3",
+    isVerified: true,
+  },
+  {
+    id: "2",
+    name: "Vyapar Electronics",
+    address: "456 Anna Salai, Chennai, Tamil Nadu",
+    rating: 4.2,
+    imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3",
+    isVerified: true,
+  },
+  {
+    id: "3",
+    name: "Vyapar Digital Solutions",
+    address: "789 Bandra Road, Mumbai, Maharashtra",
+    rating: 4.5,
+    imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3",
+    isVerified: false,
+  },
+];
+
+const BusinessSelection = () => {
+  const [loading, setLoading] = useState(true);
+  const [businesses, setBusinesses] = useState<typeof mockBusinessProfiles>([]);
+  const navigate = useNavigate();
+
+  // Simulate fetching business profiles
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setBusinesses(mockBusinessProfiles);
+      setLoading(false);
+    }, 1000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleSelectBusiness = (id: string) => {
+    navigate(`/business/${id}/details`);
+  };
+
+  const handleCreateBusiness = () => {
+    // In a real app, this would open a Google Business setup flow
+    window.alert("This would open Google Business Profile creation flow in a real app");
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <NavBar />
+      <div className="container mx-auto py-6 px-4 flex-1">
+        <div className="flex justify-between items-center mb-6">
+          <div>
+            <h1 className="text-2xl font-bold text-vyapar-text">Select Business Profile</h1>
+            <p className="text-vyapar-text-secondary mt-1">
+              Choose a business profile to manage or create a new one
+            </p>
+          </div>
+          <Button 
+            className="bg-primary hover:bg-primary/90 text-white flex items-center gap-2" 
+            onClick={handleCreateBusiness}
+          >
+            <PlusCircle className="h-4 w-4" />
+            <span>New Profile</span>
+          </Button>
+        </div>
+
+        {loading ? (
+          <div className="flex justify-center items-center py-12">
+            <LoadingSpinner size="large" />
+          </div>
+        ) : businesses.length > 0 ? (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {businesses.map((business) => (
+              <BusinessCard
+                key={business.id}
+                {...business}
+                onSelect={handleSelectBusiness}
+              />
+            ))}
+          </div>
+        ) : (
+          <EmptyState
+            title="No business profiles found"
+            description="You don't have any Google Business Profiles linked to this Google account."
+            ctaText="Create Business Profile"
+            ctaAction={handleCreateBusiness}
+            icon={
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-12 w-12"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                />
+              </svg>
+            }
+          />
+        )}
+      </div>
+    </div>
+  );
+};
+
+export default BusinessSelection;
