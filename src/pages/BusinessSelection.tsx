@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { PlusCircle } from "lucide-react";
+import { Plus } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import BusinessCard from "@/components/BusinessCard";
 import LoadingSpinner from "@/components/LoadingSpinner";
@@ -17,6 +17,9 @@ const mockBusinessProfiles = [
     rating: 4.7,
     imageUrl: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?ixlib=rb-4.0.3",
     isVerified: true,
+    reviewCount: 48,
+    websiteUrl: "https://vyaparstore.com",
+    phoneNumber: "+91 98765 43210",
   },
   {
     id: "2",
@@ -25,6 +28,9 @@ const mockBusinessProfiles = [
     rating: 4.2,
     imageUrl: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3",
     isVerified: true,
+    reviewCount: 32,
+    websiteUrl: "https://vyaparelectronics.in",
+    phoneNumber: "+91 98765 12345",
   },
   {
     id: "3",
@@ -33,6 +39,9 @@ const mockBusinessProfiles = [
     rating: 4.5,
     imageUrl: "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?ixlib=rb-4.0.3",
     isVerified: false,
+    reviewCount: 12,
+    websiteUrl: "https://vyapardigital.com",
+    phoneNumber: "+91 98765 67890",
   },
 ];
 
@@ -72,10 +81,11 @@ const BusinessSelection = () => {
             </p>
           </div>
           <Button 
-            className="bg-primary hover:bg-primary/90 text-white flex items-center gap-2" 
+            variant="outline"
+            className="border-gray-300 text-vyapar-text-secondary hover:bg-gray-100 hover:text-vyapar-text flex items-center gap-2" 
             onClick={handleCreateBusiness}
           >
-            <PlusCircle className="h-4 w-4" />
+            <Plus className="h-4 w-4" />
             <span>New Profile</span>
           </Button>
         </div>
@@ -85,7 +95,7 @@ const BusinessSelection = () => {
             <LoadingSpinner size="large" />
           </div>
         ) : businesses.length > 0 ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             {businesses.map((business) => (
               <BusinessCard
                 key={business.id}
