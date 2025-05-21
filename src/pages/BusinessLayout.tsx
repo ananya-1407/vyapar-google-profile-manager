@@ -1,7 +1,7 @@
 
-import React from "react";
-import { Outlet, useParams, useLocation } from "react-router-dom";
-import { Info, MessageSquare, Star, ChartBar } from "lucide-react";
+import React, { useState } from "react";
+import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
+import { Info, MessageSquare, ChartBar, MoreHorizontal } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProfileTabs from "@/components/ProfileTabs";
@@ -9,6 +9,8 @@ import ProfileTabs from "@/components/ProfileTabs";
 const BusinessLayout = () => {
   const { businessId } = useParams<{ businessId: string }>();
   const location = useLocation();
+  const navigate = useNavigate();
+  const [activeTab, setActiveTab] = useState("");
   
   // Mock data for business name
   const businessName = businessId === "1" 
@@ -59,13 +61,22 @@ const BusinessLayout = () => {
     },
   ];
 
+  // Handle tab changes
+  const handleTabChange = (tabId: string) => {
+    setActiveTab(tabId);
+    navigate(tabs.find(tab => tab.id === tabId)?.path || '');
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <NavBar />
       <div className="container mx-auto px-4">
         <Breadcrumbs items={filteredBreadcrumbs} />
         <h1 className="text-2xl font-bold text-vyapar-text mt-2 mb-6">{businessName}</h1>
-        <ProfileTabs businessId={businessId || ""} tabs={tabs} />
+        <ProfileTabs 
+          businessId={businessId || ""} 
+          tabs={tabs} 
+        />
         <div className="py-6">
           <Outlet />
         </div>
