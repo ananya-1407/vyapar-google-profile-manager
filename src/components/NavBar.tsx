@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Home } from "lucide-react";
+import { Home, ChartBar } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
@@ -51,6 +51,13 @@ const NavBar = () => {
             <Link to="/">
               <Home className="h-5 w-5 mr-2" />
               <span className="hidden sm:inline">Home</span>
+            </Link>
+          </Button>
+          
+          <Button variant="ghost" className="text-[#dd3643] hover:bg-gray-100" asChild>
+            <Link to="/insights">
+              <ChartBar className="h-5 w-5 mr-2" />
+              <span className="hidden sm:inline">Google Insights</span>
             </Link>
           </Button>
           
