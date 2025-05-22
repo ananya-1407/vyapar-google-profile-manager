@@ -32,10 +32,16 @@ const Index = () => {
           <div className="max-w-xl space-y-6">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-vyapar-text mb-4">
-                Manage Your Google Business Profile with Vyapar
+                Boost Your Local Business Visibility & Customer Engagement — All from Vyapar.
               </h1>
               <p className="text-vyapar-text-secondary text-lg">
-                Connect, update, and optimize your Google Business Profile directly from Vyapar. Respond to customer reviews, track performance, and grow your online presence.
+                Manage your Google Business Profile effortlessly alongside your accounting. Update info, respond to reviews, and track your business performance — without leaving the Vyapar app.
+              </p>
+            </div>
+
+            <div className="bg-green-50 p-4 rounded-lg border border-green-100 text-center">
+              <p className="text-vyapar-text-secondary font-medium">
+                Trusted by over 1 million+ Indian MSMEs to simplify business management and accelerate growth.
               </p>
             </div>
 
