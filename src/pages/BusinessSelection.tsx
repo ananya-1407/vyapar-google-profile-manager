@@ -67,6 +67,19 @@ const BusinessSelection = () => {
     return () => clearTimeout(timer);
   }, []);
 
+  // Auto-navigate to the first business profile if available
+  useEffect(() => {
+    if (!loading && businesses.length > 0) {
+      const defaultBusiness = businesses[0];
+      const queryParams = new URLSearchParams(window.location.search);
+      
+      // Only auto-navigate if the 'auto' parameter is present
+      if (queryParams.get('auto') === 'true') {
+        navigate(`/business/${defaultBusiness.id}/details`);
+      }
+    }
+  }, [loading, businesses, navigate]);
+
   const handleSelectBusiness = (id: string) => {
     navigate(`/business/${id}/details`);
   };

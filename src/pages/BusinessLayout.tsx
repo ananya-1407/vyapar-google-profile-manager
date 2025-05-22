@@ -1,10 +1,33 @@
 
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
-import { Info, MessageSquare, ChartBar } from "lucide-react";
+import { Info, MessageSquare, ChartBar, ChevronDown } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProfileTabs from "@/components/ProfileTabs";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
+// Mock data for business profiles
+const mockBusinessProfiles = [
+  {
+    id: "1",
+    name: "Vyapar Store Bangalore",
+  },
+  {
+    id: "2",
+    name: "Vyapar Electronics",
+  },
+  {
+    id: "3",
+    name: "Vyapar Digital Solutions",
+  },
+];
 
 const BusinessLayout = () => {
   const { businessId } = useParams<{ businessId: string }>();
@@ -12,12 +35,19 @@ const BusinessLayout = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("");
   
-  // Mock data for business name
-  const businessName = businessId === "1" 
-    ? "Vyapar Store Bangalore" 
-    : businessId === "2" 
-    ? "Vyapar Electronics" 
-    : "Vyapar Digital Solutions";
+  // Get current business name
+  const currentBusiness = mockBusinessProfiles.find(business => business.id === businessId) || mockBusinessProfiles[0];
+  
+  // Handle business profile change
+  const handleBusinessChange = (selectedBusinessId: string) => {
+    // Get the current tab from the URL
+    const currentPath = location.pathname;
+    const pathParts = currentPath.split('/');
+    const currentTab = pathParts[pathParts.length - 1];
+    
+    // Navigate to the same tab but for the new business
+    navigate(`/business/${selectedBusinessId}/${currentTab}`);
+  };
 
   // Determine current active page for breadcrumb
   const getActivePage = () => {
@@ -30,7 +60,7 @@ const BusinessLayout = () => {
   const breadcrumbItems = [
     { label: "Home", path: "/" },
     { label: "Business Profiles", path: "/select-business" },
-    { label: businessName, path: `/business/${businessId}/details` },
+    { label: currentBusiness.name, path: `/business/${businessId}/details` },
     { label: getActivePage(), path: location.pathname }
   ];
 
@@ -67,6 +97,13 @@ const BusinessLayout = () => {
     navigate(tabs.find(tab => tab.id === tabId)?.path || '');
   };
 
+  // On component mount, navigate to the current business's details page if no specific tab is selected
+  useEffect(() => {
+    if (location.pathname === `/business/${businessId}`) {
+      navigate(`/business/${businessId}/details`);
+    }
+  }, [businessId, location.pathname, navigate]);
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <NavBar />
@@ -74,7 +111,29 @@ const BusinessLayout = () => {
         <div className="overflow-x-auto">
           <Breadcrumbs items={filteredBreadcrumbs} />
         </div>
-        <h1 className="text-xl sm:text-2xl font-bold text-vyapar-text mt-2 mb-4 sm:mb-6">{businessName}</h1>
+        
+        <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-2 mb-4 sm:mb-6">
+          <h1 className="text-xl sm:text-2xl font-bold text-vyapar-text">{currentBusiness.name}</h1>
+          
+          <div className="w-full md:w-auto min-w-[240px]">
+            <Select
+              value={businessId}
+              onValueChange={handleBusinessChange}
+            >
+              <SelectTrigger className="w-full bg-white border border-gray-200">
+                <SelectValue placeholder="Select a business profile" />
+              </SelectTrigger>
+              <SelectContent>
+                {mockBusinessProfiles.map((business) => (
+                  <SelectItem key={business.id} value={business.id}>
+                    {business.name}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
+        </div>
+        
         <ProfileTabs 
           businessId={businessId || ""} 
           tabs={tabs} 
