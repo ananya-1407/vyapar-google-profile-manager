@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
-import { Info, MessageSquare, ChartBar, ChevronDown } from "lucide-react";
+import { Info, MessageSquare, ChartBar, ChevronDown, ExternalLink } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProfileTabs from "@/components/ProfileTabs";
@@ -12,6 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
 
 // Mock data for business profiles
 const mockBusinessProfiles = [
@@ -34,6 +36,7 @@ const BusinessLayout = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("");
+  const { toast } = useToast();
   
   // Get current business name
   const currentBusiness = mockBusinessProfiles.find(business => business.id === businessId) || mockBusinessProfiles[0];
@@ -47,6 +50,18 @@ const BusinessLayout = () => {
     
     // Navigate to the same tab but for the new business
     navigate(`/business/${selectedBusinessId}/${currentTab}`);
+  };
+
+  // Handle opening Google Business Profile
+  const openGoogleBusinessProfile = () => {
+    // In a real app, this would use the actual Google Business URL with the business ID
+    const googleBusinessUrl = "https://business.google.com/dashboard";
+    window.open(googleBusinessUrl, "_blank");
+    
+    toast({
+      title: "Opening Google Business Profile",
+      description: "Redirecting to Google Business Manager"
+    });
   };
 
   // Determine current active page for breadcrumb
@@ -113,7 +128,19 @@ const BusinessLayout = () => {
         </div>
         
         <div className="flex flex-col md:flex-row md:justify-between md:items-center gap-4 mt-2 mb-4 sm:mb-6">
-          <h1 className="text-xl sm:text-2xl font-bold text-vyapar-text">{currentBusiness.name}</h1>
+          <div className="flex items-center gap-4">
+            <h1 className="text-xl sm:text-2xl font-bold text-vyapar-text">{currentBusiness.name}</h1>
+            <Button
+              variant="ghost"
+              size="sm"
+              className="text-gray-500 hover:text-primary"
+              onClick={openGoogleBusinessProfile}
+              title="Open in Google Business Profile"
+            >
+              <ExternalLink className="h-4 w-4" />
+              <span className="sr-only md:not-sr-only md:ml-2 text-xs">Google Business</span>
+            </Button>
+          </div>
           
           <div className="w-full md:w-auto min-w-[240px]">
             <Select

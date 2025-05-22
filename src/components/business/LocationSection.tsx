@@ -1,9 +1,7 @@
 
 import React from "react";
-import { PenLine, MapPin } from "lucide-react";
+import { MapPin } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { useToast } from "@/hooks/use-toast";
 
 interface LocationInfo {
   address: string;
@@ -14,29 +12,12 @@ interface LocationSectionProps {
 }
 
 const LocationSection = ({ locationInfo }: LocationSectionProps) => {
-  const { toast } = useToast();
-
-  const handleEditField = (field: string) => {
-    toast({
-      title: "Edit Field",
-      description: `Editing ${field} would open an edit dialog in a real app`,
-    });
-  };
-
   return (
     <div id="section-location">
       <Card>
         <CardHeader>
           <div className="flex justify-between items-center">
             <CardTitle className="text-xl">Location</CardTitle>
-            <Button 
-              variant="outline" 
-              className="text-primary border-primary" 
-              onClick={() => handleEditField("location")}
-            >
-              <PenLine className="h-4 w-4 mr-2" />
-              Edit
-            </Button>
           </div>
         </CardHeader>
         <CardContent>
