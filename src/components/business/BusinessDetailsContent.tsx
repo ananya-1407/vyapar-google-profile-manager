@@ -44,13 +44,15 @@ const BusinessDetailsContent = ({
   return (
     <div className="space-y-6">
       <Tabs value={activeTab} onValueChange={scrollToSection} className="w-full">
-        <TabsList className="grid grid-cols-5 md:w-[500px]">
-          <TabsTrigger value="about">About</TabsTrigger>
-          <TabsTrigger value="contact">Contact</TabsTrigger>
-          <TabsTrigger value="location">Location</TabsTrigger>
-          <TabsTrigger value="hours">Hours</TabsTrigger>
-          <TabsTrigger value="more">More</TabsTrigger>
-        </TabsList>
+        <div className="overflow-x-auto pb-2">
+          <TabsList className="inline-flex w-auto min-w-full md:w-[500px] md:grid md:grid-cols-5">
+            <TabsTrigger value="about">About</TabsTrigger>
+            <TabsTrigger value="contact">Contact</TabsTrigger>
+            <TabsTrigger value="location">Location</TabsTrigger>
+            <TabsTrigger value="hours">Hours</TabsTrigger>
+            <TabsTrigger value="more">More</TabsTrigger>
+          </TabsList>
+        </div>
 
         <div className="space-y-8 mt-6">
           <TabsContent value="about" className="space-y-4" forceMount={true}>

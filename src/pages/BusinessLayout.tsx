@@ -70,16 +70,18 @@ const BusinessLayout = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <NavBar />
-      <div className="container mx-auto px-4">
-        <Breadcrumbs items={filteredBreadcrumbs} />
-        <h1 className="text-2xl font-bold text-vyapar-text mt-2 mb-6">{businessName}</h1>
+      <div className="container mx-auto px-3 sm:px-4">
+        <div className="overflow-x-auto">
+          <Breadcrumbs items={filteredBreadcrumbs} />
+        </div>
+        <h1 className="text-xl sm:text-2xl font-bold text-vyapar-text mt-2 mb-4 sm:mb-6">{businessName}</h1>
         <ProfileTabs 
           businessId={businessId || ""} 
           tabs={tabs} 
           activeTab={activeTab}
           onTabChange={handleTabChange}
         />
-        <div className="py-6">
+        <div className="py-4 sm:py-6">
           <Outlet />
         </div>
       </div>

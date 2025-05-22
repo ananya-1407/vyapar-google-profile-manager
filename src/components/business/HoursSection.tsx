@@ -28,11 +28,11 @@ const HoursSection = ({ hoursInfo }: HoursSectionProps) => {
     <div id="section-hours">
       <Card>
         <CardHeader>
-          <div className="flex justify-between items-center">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-2">
             <CardTitle className="text-xl">Business Hours</CardTitle>
             <Button 
               variant="outline" 
-              className="text-primary border-primary" 
+              className="text-primary border-primary w-full sm:w-auto" 
               onClick={() => handleEditField("hours")}
             >
               <PenLine className="h-4 w-4 mr-2" />
