@@ -6,6 +6,7 @@ import { Button } from "@/components/ui/button";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
 import { Youtube, Star, MessageSquare, MapPin, ChartBar } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel";
 
 const Index = () => {
   const navigate = useNavigate();
@@ -28,7 +29,7 @@ const Index = () => {
       </header>
 
       <main className="flex-1 flex flex-col md:flex-row">
-        <div className="w-full md:w-1/2 lg:w-3/5 flex items-center justify-center p-6 md:p-12">
+        <div className="w-full md:w-3/5 lg:w-3/5 flex items-center justify-center p-6 md:p-12">
           <div className="max-w-xl space-y-6">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-vyapar-text mb-4">
@@ -87,7 +88,8 @@ const Index = () => {
             </div>
           </div>
         </div>
-        <div className="w-full md:w-1/2 lg:w-2/5 bg-gradient-to-br from-primary to-primary/70 p-6 md:p-12 flex items-center justify-center">
+        <div className="w-full md:w-2/5 lg:w-2/5 bg-gradient-to-br from-primary to-primary/70 p-6 md:p-12 flex flex-col items-center justify-center gap-8">
+          {/* Main Dashboard Card */}
           <Card className="w-full max-w-md border-0 shadow-xl rotate-3">
             <CardHeader className="bg-primary text-white p-4">
               <div className="flex items-center justify-between">
@@ -138,6 +140,57 @@ const Index = () => {
               </div>
             </CardContent>
           </Card>
+          
+          {/* Image Carousel */}
+          <Carousel className="w-full max-w-md">
+            <CarouselContent>
+              <CarouselItem>
+                <div className="overflow-hidden rounded-xl shadow-lg">
+                  <img 
+                    src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?auto=format&fit=crop&w=500&q=80" 
+                    alt="Business owner working on laptop" 
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+              </CarouselItem>
+              <CarouselItem>
+                <div className="overflow-hidden rounded-xl shadow-lg">
+                  <img 
+                    src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&w=500&q=80" 
+                    alt="Business owner using laptop" 
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+              </CarouselItem>
+              <CarouselItem>
+                <div className="overflow-hidden rounded-xl shadow-lg">
+                  <img 
+                    src="https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&w=500&q=80" 
+                    alt="Business analysis on laptop" 
+                    className="w-full h-48 object-cover"
+                  />
+                </div>
+              </CarouselItem>
+            </CarouselContent>
+            <div className="flex justify-center mt-2">
+              <CarouselPrevious className="static translate-y-0 mx-1" />
+              <CarouselNext className="static translate-y-0 mx-1" />
+            </div>
+          </Carousel>
+          
+          {/* Integration Image */}
+          <div className="bg-white p-4 rounded-xl shadow-lg w-full max-w-md">
+            <div className="flex items-center justify-center gap-4">
+              <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center">
+                <span className="text-primary font-bold text-xl">V</span>
+              </div>
+              <div className="text-2xl font-bold text-gray-400">+</div>
+              <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center">
+                <span className="text-blue-500 font-bold text-xl">G</span>
+              </div>
+            </div>
+            <p className="text-center mt-3 text-gray-600 font-medium">Seamless Integration</p>
+          </div>
         </div>
       </main>
 
