@@ -6,7 +6,19 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import ReviewCard from "@/components/ReviewCard";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import EmptyState from "@/components/EmptyState";
-import { MessageSquare, Star } from "lucide-react";
+import { MessageSquare, Star, Lightbulb, PenLine } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useToast } from "@/hooks/use-toast";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Collapsible,
+  CollapsibleContent,
+  CollapsibleTrigger,
+} from "@/components/ui/collapsible";
 
 // Mock review data
 const mockReviews = [
@@ -76,6 +88,9 @@ const CustomerInteractions = () => {
   const [loading, setLoading] = useState(true);
   const [reviews, setReviews] = useState<typeof mockReviews>([]);
   const [qa, setQa] = useState<typeof mockQA>([]);
+  const [isGenerating, setIsGenerating] = useState(false);
+  const [isFaqExpanded, setIsFaqExpanded] = useState(false);
+  const { toast } = useToast();
 
   useEffect(() => {
     // Simulate API call
@@ -96,8 +111,32 @@ const CustomerInteractions = () => {
     window.alert(`Answer question ${questionId} would open a dialog in a real app`);
   };
 
-  const handleGenerateAutoReply = () => {
-    window.alert("This would generate AI-powered responses in a real app");
+  const handleEditField = (field: string) => {
+    toast({
+      title: "Edit Field",
+      description: `Editing ${field} would open an edit dialog in a real app`,
+    });
+  };
+
+  const generateWithAI = (field: string) => {
+    setIsGenerating(true);
+    
+    // Simulate AI generation
+    setTimeout(() => {
+      if (field === "faqs") {
+        toast({
+          title: "FAQs Generated",
+          description: "AI has generated sample FAQs based on your business type.",
+        });
+      }
+      
+      setIsGenerating(false);
+      
+      toast({
+        title: "AI Suggestion Generated",
+        description: `New content for ${field} has been generated. You can edit it further if needed.`,
+      });
+    }, 1500);
   };
 
   if (loading) {
@@ -148,6 +187,86 @@ const CustomerInteractions = () => {
         </CardContent>
       </Card>
 
+      <Card className="mb-6">
+        <CardHeader>
+          <div className="flex justify-between items-center">
+            <CardTitle className="text-xl">Frequently Asked Questions</CardTitle>
+            <div className="flex space-x-2">
+              <Popover>
+                <PopoverTrigger asChild>
+                  <Button variant="outline" className="text-primary border-primary">
+                    <Lightbulb className="h-4 w-4 mr-2" />
+                    AI Assist
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-80">
+                  <div className="space-y-4">
+                    <h4 className="font-medium">Generate FAQs with AI</h4>
+                    <p className="text-sm text-muted-foreground">
+                      Let AI suggest common questions and answers for your type of business.
+                    </p>
+                    <Button 
+                      className="w-full" 
+                      onClick={() => generateWithAI("faqs")}
+                      disabled={isGenerating}
+                    >
+                      {isGenerating ? "Generating..." : "Generate FAQs"}
+                    </Button>
+                  </div>
+                </PopoverContent>
+              </Popover>
+              <Button 
+                variant="outline" 
+                className="text-primary border-primary"
+                onClick={() => handleEditField("faqs")}
+              >
+                <PenLine className="h-4 w-4 mr-2" />
+                Edit
+              </Button>
+            </div>
+          </div>
+        </CardHeader>
+        <CardContent className="space-y-4">
+          <Collapsible 
+            open={isFaqExpanded} 
+            onOpenChange={setIsFaqExpanded}
+            className="border rounded-md"
+          >
+            <CollapsibleTrigger className="flex w-full items-center justify-between p-4 hover:bg-gray-50">
+              <h3 className="text-sm font-medium">Do you offer free shipping?</h3>
+              <div className="text-primary">
+                {isFaqExpanded ? (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-up"><path d="m18 15-6-6-6 6"/></svg>
+                ) : (
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+                )}
+              </div>
+            </CollapsibleTrigger>
+            <CollapsibleContent className="p-4 border-t">
+              <p className="text-sm text-vyapar-text-secondary">Yes, we offer free shipping on all orders above ₹1000. For orders below this amount, a standard shipping fee of ₹100 applies.</p>
+            </CollapsibleContent>
+          </Collapsible>
+          
+          <div className="border rounded-md">
+            <div className="flex w-full items-center justify-between p-4 hover:bg-gray-50 cursor-pointer">
+              <h3 className="text-sm font-medium">What are your return policies?</h3>
+              <div className="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </div>
+          </div>
+          
+          <div className="border rounded-md">
+            <div className="flex w-full items-center justify-between p-4 hover:bg-gray-50 cursor-pointer">
+              <h3 className="text-sm font-medium">Do you have physical stores?</h3>
+              <div className="text-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-chevron-down"><path d="m6 9 6 6 6-6"/></svg>
+              </div>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+
       <Card>
         <CardContent className="p-0">
           <Tabs defaultValue="reviews" className="w-full">
@@ -158,9 +277,6 @@ const CustomerInteractions = () => {
                 </TabsTrigger>
                 <TabsTrigger value="questions" className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none">
                   Questions & Answers
-                </TabsTrigger>
-                <TabsTrigger value="auto-reply" className="data-[state=active]:border-b-2 data-[state=active]:border-primary data-[state=active]:text-primary rounded-none">
-                  Auto-Generated Replies
                 </TabsTrigger>
               </TabsList>
             </div>
@@ -231,48 +347,6 @@ const CustomerInteractions = () => {
                   icon={<MessageSquare className="h-12 w-12" />}
                 />
               )}
-            </TabsContent>
-
-            <TabsContent value="auto-reply" className="p-6">
-              <Card className="border border-gray-200 bg-gray-50">
-                <CardContent className="p-4">
-                  <div className="mb-4">
-                    <h3 className="font-medium text-vyapar-text mb-2">AI-Powered Response Generator</h3>
-                    <p className="text-sm text-vyapar-text-secondary">
-                      Our AI can generate personalized responses to customer reviews and questions based on your business information and past interactions. This helps maintain a consistent tone and ensures timely responses.
-                    </p>
-                  </div>
-                  <div className="bg-white p-4 rounded border border-gray-200 mb-4">
-                    <h4 className="text-sm font-medium text-vyapar-text mb-2">Benefits of Auto-Generated Responses:</h4>
-                    <ul className="text-sm text-vyapar-text-secondary space-y-1">
-                      <li className="flex items-start">
-                        <svg className="h-4 w-4 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        Save time responding to common questions
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-4 w-4 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        Maintain consistent brand voice
-                      </li>
-                      <li className="flex items-start">
-                        <svg className="h-4 w-4 text-green-500 mr-2 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                        </svg>
-                        Improve response rate and customer satisfaction
-                      </li>
-                    </ul>
-                  </div>
-                  <button 
-                    className="w-full bg-primary hover:bg-primary/90 text-white py-2 rounded font-medium"
-                    onClick={handleGenerateAutoReply}
-                  >
-                    Generate AI Responses
-                  </button>
-                </CardContent>
-              </Card>
             </TabsContent>
           </Tabs>
         </CardContent>
