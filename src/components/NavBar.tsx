@@ -37,17 +37,17 @@ const NavBar = () => {
   };
 
   return (
-    <nav className="bg-[#dd3643] py-4 px-6 shadow-md">
+    <nav className="bg-white py-4 px-6 shadow-md">
       <div className="max-w-7xl mx-auto flex justify-between items-center">
         <div className="flex items-center space-x-2">
           <Link to="/" className="flex items-center space-x-2">
-            <span className="text-white font-medium hidden md:block">
+            <span className="text-[#dd3643] font-medium hidden md:block">
               Vyapar Google Business Manager
             </span>
           </Link>
         </div>
         <div className="flex items-center space-x-4">
-          <Button variant="ghost" className="text-white hover:bg-[#dd3643]/80" asChild>
+          <Button variant="ghost" className="text-[#dd3643] hover:bg-gray-100" asChild>
             <Link to="/">
               <Home className="h-5 w-5 mr-2" />
               <span className="hidden sm:inline">Home</span>
@@ -57,7 +57,7 @@ const NavBar = () => {
           {isLoggedIn ? (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="ghost" className="relative h-10 w-10 rounded-full bg-white/90 p-0">
+                <Button variant="ghost" className="relative h-10 w-10 rounded-full bg-gray-100 p-0">
                   <Avatar className="h-9 w-9">
                     <AvatarFallback className="bg-gray-100 text-[#dd3643]">
                       US
@@ -87,7 +87,7 @@ const NavBar = () => {
             </DropdownMenu>
           ) : (
             <Button 
-              className="rounded-full bg-white text-[#dd3643] hover:bg-white/90" 
+              className="rounded-full bg-[#dd3643] text-white hover:bg-[#dd3643]/90" 
               onClick={handleLogin}
             >
               Login
