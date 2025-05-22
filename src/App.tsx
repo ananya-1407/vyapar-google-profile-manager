@@ -12,7 +12,7 @@ import BusinessDetails from "./pages/BusinessDetails";
 import CustomerInteractions from "./pages/CustomerInteractions";
 import GoogleInsights from "./pages/GoogleInsights";
 import NotFound from "./pages/NotFound";
-import BusinessSelection from "./pages/BusinessSelection"; // Import the BusinessSelection component
+import BusinessSelection from "./pages/BusinessSelection";
 
 const queryClient = new QueryClient();
 
@@ -44,7 +44,7 @@ const App = () => (
             } 
           />
           <Route path="/login" element={<GoogleLogin />} />
-          <Route path="/select-business" element={<BusinessSelection />} /> {/* Add route for business selection */}
+          <Route path="/select-business" element={<BusinessSelection />} />
           <Route path="/business/:businessId" element={<BusinessLayout />}>
             <Route path="details" element={<BusinessDetails />} />
             <Route path="interactions" element={<CustomerInteractions />} />
