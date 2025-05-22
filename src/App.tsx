@@ -44,8 +44,7 @@ const App = () => (
             } 
           />
           <Route path="/login" element={<GoogleLogin />} />
-          <Route path="/select-business" element={<BusinessSelection />} /> {/* Route for business selection */}
-          <Route path="/insights" element={<BusinessLayout><GoogleInsights /></BusinessLayout>} /> {/* Direct route to insights */}
+          <Route path="/select-business" element={<BusinessSelection />} /> {/* Add route for business selection */}
           <Route path="/business/:businessId" element={<BusinessLayout />}>
             <Route path="details" element={<BusinessDetails />} />
             <Route path="interactions" element={<CustomerInteractions />} />
