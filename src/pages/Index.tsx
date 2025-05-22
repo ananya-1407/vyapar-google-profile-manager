@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
-import { Youtube } from "lucide-react";
+import { Youtube, Star, MessageSquare, MapPin, ChartBar } from "lucide-react";
 import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const Index = () => {
@@ -39,38 +39,32 @@ const Index = () => {
               </p>
             </div>
 
-            <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm space-y-3">
+            <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm space-y-5">
               <div className="flex items-start">
-                <div className="bg-green-100 p-1 rounded-full mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
+                <div className="bg-green-100 p-2 rounded-full mr-4 flex-shrink-0">
+                  <Star className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-vyapar-text">Manage Business Details</h3>
-                  <p className="text-sm text-vyapar-text-secondary">Update your contact info, business hours, and location</p>
+                  <h3 className="font-medium text-vyapar-text text-lg">Grow Your Positive Reviews</h3>
+                  <p className="text-sm text-vyapar-text-secondary">Easily monitor and respond to customer feedback to build trust and enhance your business reputation.</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <div className="bg-green-100 p-1 rounded-full mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
+                <div className="bg-green-100 p-2 rounded-full mr-4 flex-shrink-0">
+                  <MapPin className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-vyapar-text">Respond to Reviews</h3>
-                  <p className="text-sm text-vyapar-text-secondary">Engage with customer feedback and improve satisfaction</p>
+                  <h3 className="font-medium text-vyapar-text text-lg">Complete Profile Management</h3>
+                  <p className="text-sm text-vyapar-text-secondary">Update your contact info, business hours, location, and services effortlessly.</p>
                 </div>
               </div>
               <div className="flex items-start">
-                <div className="bg-green-100 p-1 rounded-full mr-3">
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-green-600" viewBox="0 0 20 20" fill="currentColor">
-                    <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
-                  </svg>
+                <div className="bg-green-100 p-2 rounded-full mr-4 flex-shrink-0">
+                  <ChartBar className="h-5 w-5 text-green-600" />
                 </div>
                 <div>
-                  <h3 className="font-medium text-vyapar-text">Track Business Performance</h3>
-                  <p className="text-sm text-vyapar-text-secondary">Monitor views, clicks, and customer actions</p>
+                  <h3 className="font-medium text-vyapar-text text-lg">Insightful Performance Tracking</h3>
+                  <p className="text-sm text-vyapar-text-secondary">Access clear analytics on how customers find and interact with your business online.</p>
                 </div>
               </div>
             </div>
@@ -101,19 +95,39 @@ const Index = () => {
               </div>
             </CardHeader>
             <CardContent className="p-0">
-              <img 
-                src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?ixlib=rb-4.0.3"
-                alt="Google Business Dashboard Preview" 
-                className="w-full h-56 object-cover"
-              />
+              <div className="bg-white p-4 flex border-b">
+                <div className="h-12 w-12 bg-green-100 rounded-full flex items-center justify-center mr-4">
+                  <Star className="h-6 w-6 text-green-600" />
+                </div>
+                <div>
+                  <div className="font-medium">4.8/5.0</div>
+                  <div className="text-sm text-gray-500">32 Recent Reviews</div>
+                </div>
+              </div>
+              <div className="grid grid-cols-2 gap-2 p-4 border-b">
+                <div className="bg-gray-50 p-3 rounded">
+                  <div className="text-xs text-gray-500 mb-1">Profile Views</div>
+                  <div className="font-medium flex items-center">
+                    <MapPin className="h-4 w-4 text-primary mr-1" />
+                    843
+                  </div>
+                </div>
+                <div className="bg-gray-50 p-3 rounded">
+                  <div className="text-xs text-gray-500 mb-1">Customer Actions</div>
+                  <div className="font-medium flex items-center">
+                    <MessageSquare className="h-4 w-4 text-primary mr-1" />
+                    56
+                  </div>
+                </div>
+              </div>
               <div className="p-4">
-                <div className="bg-gray-100 h-6 w-3/4 mb-2 rounded"></div>
-                <div className="bg-gray-100 h-4 w-full mb-2 rounded"></div>
-                <div className="bg-gray-100 h-4 w-4/5 mb-4 rounded"></div>
-                <div className="grid grid-cols-3 gap-2">
-                  <div className="bg-gray-100 h-10 rounded"></div>
-                  <div className="bg-primary/20 h-10 rounded"></div>
-                  <div className="bg-gray-100 h-10 rounded"></div>
+                <div className="font-medium mb-2">Performance</div>
+                <div className="h-2 w-full bg-gray-100 rounded overflow-hidden">
+                  <div className="h-full bg-primary" style={{ width: '68%' }}></div>
+                </div>
+                <div className="flex justify-between text-xs text-gray-500 mt-1">
+                  <span>Last Month</span>
+                  <span>+24%</span>
                 </div>
               </div>
             </CardContent>
