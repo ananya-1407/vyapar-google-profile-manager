@@ -26,7 +26,7 @@ export default {
 				background: 'hsl(var(--background))',
 				foreground: 'hsl(var(--foreground))',
 				primary: {
-					DEFAULT: '#0D4A7A', // Vyapar Blue
+					DEFAULT: '#dd3643', // Updated to match the red color from the image
 					foreground: '#FFFFFF'
 				},
 				secondary: {
@@ -56,6 +56,7 @@ export default {
 				vyapar: {
 					blue: '#0D4A7A',
 					yellow: '#FBBF24',
+					red: '#dd3643', // Added red color
 					text: '#1F2937',
 					'text-secondary': '#6B7280',
 				},
