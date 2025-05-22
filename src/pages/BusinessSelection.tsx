@@ -7,6 +7,12 @@ import BusinessCard from "@/components/BusinessCard";
 import LoadingSpinner from "@/components/LoadingSpinner";
 import EmptyState from "@/components/EmptyState";
 import { Button } from "@/components/ui/button";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle 
+} from "@/components/ui/dialog";
 
 // Mock data for business profiles
 const mockBusinessProfiles = [
@@ -48,6 +54,7 @@ const mockBusinessProfiles = [
 const BusinessSelection = () => {
   const [loading, setLoading] = useState(true);
   const [businesses, setBusinesses] = useState<typeof mockBusinessProfiles>([]);
+  const [isWebViewOpen, setIsWebViewOpen] = useState(false);
   const navigate = useNavigate();
 
   // Simulate fetching business profiles
@@ -65,8 +72,7 @@ const BusinessSelection = () => {
   };
 
   const handleCreateBusiness = () => {
-    // In a real app, this would open a Google Business setup flow
-    window.alert("This would open Google Business Profile creation flow in a real app");
+    setIsWebViewOpen(true);
   };
 
   return (
@@ -129,6 +135,22 @@ const BusinessSelection = () => {
           />
         )}
       </div>
+
+      <Dialog open={isWebViewOpen} onOpenChange={setIsWebViewOpen}>
+        <DialogContent className="max-w-4xl h-[80vh] p-0">
+          <DialogHeader className="p-4 border-b">
+            <DialogTitle>Create Google Business Profile</DialogTitle>
+          </DialogHeader>
+          <div className="w-full h-full flex-1">
+            <iframe 
+              src="https://business.google.com/create" 
+              className="w-full h-[calc(80vh-60px)]" 
+              title="Google Business Profile Creation"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
