@@ -12,8 +12,11 @@ const GoogleLogin = () => {
     setLoading(true);
     // Simulate Google login process
     setTimeout(() => {
+      // Set login state in localStorage
+      localStorage.setItem("isLoggedIn", "true");
       setLoading(false);
-      navigate("/select-business");
+      // Navigate directly to the default business
+      navigate("/business/1/details");
     }, 1500);
   };
 

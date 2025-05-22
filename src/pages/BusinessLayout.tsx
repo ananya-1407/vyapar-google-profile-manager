@@ -1,7 +1,7 @@
 
 import React, { useState, useEffect } from "react";
 import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
-import { Info, MessageSquare, ChartBar, ChevronDown, ExternalLink } from "lucide-react";
+import { Info, MessageSquare, ChartBar, ChevronDown, ExternalLink, Plus } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProfileTabs from "@/components/ProfileTabs";
@@ -11,9 +11,18 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  SelectGroup,
+  SelectLabel,
+  SelectSeparator,
 } from "@/components/ui/select";
 import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
+import { 
+  Dialog, 
+  DialogContent, 
+  DialogHeader, 
+  DialogTitle 
+} from "@/components/ui/dialog";
 
 // Mock data for business profiles
 const mockBusinessProfiles = [
@@ -37,12 +46,19 @@ const BusinessLayout = () => {
   const navigate = useNavigate();
   const [activeTab, setActiveTab] = useState("");
   const { toast } = useToast();
+  const [isWebViewOpen, setIsWebViewOpen] = useState(false);
   
   // Get current business name
   const currentBusiness = mockBusinessProfiles.find(business => business.id === businessId) || mockBusinessProfiles[0];
   
   // Handle business profile change
   const handleBusinessChange = (selectedBusinessId: string) => {
+    // Handle special case for "new-profile"
+    if (selectedBusinessId === "new-profile") {
+      handleCreateBusiness();
+      return;
+    }
+    
     // Get the current tab from the URL
     const currentPath = location.pathname;
     const pathParts = currentPath.split('/');
@@ -64,6 +80,11 @@ const BusinessLayout = () => {
     });
   };
 
+  // Handle creating a new business profile
+  const handleCreateBusiness = () => {
+    setIsWebViewOpen(true);
+  };
+
   // Determine current active page for breadcrumb
   const getActivePage = () => {
     if (location.pathname.includes("/details")) return "Business Details";
@@ -74,7 +95,6 @@ const BusinessLayout = () => {
 
   const breadcrumbItems = [
     { label: "Home", path: "/" },
-    { label: "Business Profiles", path: "/select-business" },
     { label: currentBusiness.name, path: `/business/${businessId}/details` },
     { label: getActivePage(), path: location.pathname }
   ];
@@ -151,11 +171,19 @@ const BusinessLayout = () => {
                 <SelectValue placeholder="Select a business profile" />
               </SelectTrigger>
               <SelectContent>
-                {mockBusinessProfiles.map((business) => (
-                  <SelectItem key={business.id} value={business.id}>
-                    {business.name}
-                  </SelectItem>
-                ))}
+                <SelectGroup>
+                  <SelectLabel>Business Profiles</SelectLabel>
+                  {mockBusinessProfiles.map((business) => (
+                    <SelectItem key={business.id} value={business.id}>
+                      {business.name}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+                <SelectSeparator />
+                <SelectItem value="new-profile" className="text-primary flex items-center">
+                  <Plus className="h-4 w-4 mr-2" />
+                  Add New Profile
+                </SelectItem>
               </SelectContent>
             </Select>
           </div>
@@ -171,6 +199,23 @@ const BusinessLayout = () => {
           <Outlet />
         </div>
       </div>
+
+      {/* Create New Business Profile Dialog */}
+      <Dialog open={isWebViewOpen} onOpenChange={setIsWebViewOpen}>
+        <DialogContent className="max-w-4xl h-[80vh] p-0">
+          <DialogHeader className="p-4 border-b">
+            <DialogTitle>Create Google Business Profile</DialogTitle>
+          </DialogHeader>
+          <div className="w-full h-full flex-1">
+            <iframe 
+              src="https://business.google.com/create" 
+              className="w-full h-[calc(80vh-60px)]" 
+              title="Google Business Profile Creation"
+              sandbox="allow-same-origin allow-scripts allow-forms allow-popups"
+            />
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };

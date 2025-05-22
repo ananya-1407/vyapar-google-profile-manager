@@ -1,7 +1,7 @@
 
 import React, { useState } from "react";
 import { Home } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -16,6 +16,7 @@ import { useToast } from "@/hooks/use-toast";
 const NavBar = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(true); // Default to logged in for demo
   const { toast } = useToast();
+  const navigate = useNavigate();
   
   const handleLogin = () => {
     setIsLoggedIn(true);
@@ -31,6 +32,8 @@ const NavBar = () => {
       title: "Logged out",
       description: "You have been logged out successfully",
     });
+    // Redirect to home page after logout
+    navigate('/');
   };
 
   return (
