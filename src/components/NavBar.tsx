@@ -28,6 +28,8 @@ const NavBar = () => {
   
   const handleLogout = () => {
     setIsLoggedIn(false);
+    // Remove the isLoggedIn flag from localStorage
+    localStorage.removeItem("isLoggedIn");
     toast({
       title: "Logged out",
       description: "You have been logged out successfully",
