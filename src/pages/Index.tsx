@@ -1,24 +1,28 @@
 
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Card, CardContent, CardHeader } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import GoogleLoginButton from "@/components/GoogleLoginButton";
+import { Youtube } from "lucide-react";
+import { Dialog, DialogContent } from "@/components/ui/dialog";
 
 const Index = () => {
   const navigate = useNavigate();
+  const [videoDialogOpen, setVideoDialogOpen] = useState(false);
 
   const handleLogin = () => {
     navigate("/login");
+  };
+
+  const openYoutubeVideo = () => {
+    setVideoDialogOpen(true);
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <header className="bg-primary py-4 px-6">
         <div className="flex items-center space-x-2">
-          <div className="bg-white p-1 rounded">
-            <span className="text-primary font-bold text-lg">V</span>
-          </div>
           <span className="text-white font-medium">Vyapar</span>
         </div>
       </header>
@@ -76,9 +80,9 @@ const Index = () => {
               <Button 
                 variant="outline" 
                 className="border-primary text-primary hover:bg-primary/5"
-                onClick={() => navigate("/select-business")}
+                onClick={openYoutubeVideo}
               >
-                View Demo
+                <Youtube className="w-5 h-5 mr-2" /> View Demo
               </Button>
             </div>
           </div>
@@ -88,9 +92,6 @@ const Index = () => {
             <CardHeader className="bg-primary text-white p-4">
               <div className="flex items-center justify-between">
                 <div className="flex items-center">
-                  <div className="bg-white p-1 rounded mr-2">
-                    <span className="text-primary font-bold text-lg">V</span>
-                  </div>
                   <span className="font-medium">Google Business Manager</span>
                 </div>
                 <svg className="h-6 w-6" viewBox="0 0 24 24" fill="none">
@@ -123,6 +124,23 @@ const Index = () => {
       <footer className="py-4 px-6 text-center text-xs text-vyapar-text-secondary border-t border-gray-200">
         &copy; 2023 Vyapar. Google Business Profile is a trademark of Google LLC.
       </footer>
+
+      {/* YouTube Video Dialog */}
+      <Dialog open={videoDialogOpen} onOpenChange={setVideoDialogOpen}>
+        <DialogContent className="max-w-3xl p-0 overflow-hidden">
+          <div className="aspect-video w-full">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/05zxXfLtwfk?autoplay=1"
+              title="Vyapar Demo Video"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+            ></iframe>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
