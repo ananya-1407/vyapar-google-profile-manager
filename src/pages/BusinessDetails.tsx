@@ -83,11 +83,19 @@ const BusinessDetails = () => {
   };
 
   return (
-    <BusinessDetailsContent 
-      businessDetails={businessDetails} 
-      activeTab={activeTab} 
-      onTabChange={handleTabChange} 
-    />
+    <div>
+      <div id="section-about"></div>
+      <div id="section-contact"></div>
+      <div id="section-location"></div>
+      <div id="section-hours"></div>
+      <div id="section-more"></div>
+      
+      <BusinessDetailsContent 
+        businessDetails={businessDetails} 
+        activeTab={activeTab} 
+        onTabChange={handleTabChange} 
+      />
+    </div>
   );
 };
 
