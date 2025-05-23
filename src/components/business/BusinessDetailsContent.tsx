@@ -55,47 +55,48 @@ const BusinessDetailsContent = ({
               <TabsTrigger value="more">More</TabsTrigger>
             </TabsList>
           </div>
+          
+          {/* Wrap all TabsContent components in the same Tabs component */}
+          <div className="space-y-8 mt-6">
+            <TabsContent value="about" className="space-y-4">
+              <AboutSection businessDetails={businessDetails} />
+            </TabsContent>
+
+            <TabsContent value="contact" className="space-y-4">
+              <ContactSection 
+                contactInfo={{
+                  phone: businessDetails.phone,
+                  website: businessDetails.website,
+                  email: businessDetails.email
+                }}
+              />
+            </TabsContent>
+
+            <TabsContent value="location" className="space-y-4">
+              <LocationSection 
+                locationInfo={{
+                  address: businessDetails.address
+                }}
+              />
+            </TabsContent>
+
+            <TabsContent value="hours" className="space-y-4">
+              <HoursSection 
+                hoursInfo={businessDetails.hours}
+              />
+            </TabsContent>
+
+            <TabsContent value="more" className="space-y-4">
+              <MoreSection 
+                additionalInfo={{
+                  payments: "Cash, Credit Card, UPI, Net Banking",
+                  languages: "English, Hindi, Tamil",
+                  accessibility: "Wheelchair accessible entrance, Accessible parking"
+                }}
+              />
+            </TabsContent>
+          </div>
         </Tabs>
-      </div>
-
-      <div className="space-y-8 mt-6">
-        <TabsContent value="about" className="space-y-4" forceMount={true}>
-          <AboutSection businessDetails={businessDetails} />
-        </TabsContent>
-
-        <TabsContent value="contact" className="space-y-4" forceMount={true}>
-          <ContactSection 
-            contactInfo={{
-              phone: businessDetails.phone,
-              website: businessDetails.website,
-              email: businessDetails.email
-            }}
-          />
-        </TabsContent>
-
-        <TabsContent value="location" className="space-y-4" forceMount={true}>
-          <LocationSection 
-            locationInfo={{
-              address: businessDetails.address
-            }}
-          />
-        </TabsContent>
-
-        <TabsContent value="hours" className="space-y-4" forceMount={true}>
-          <HoursSection 
-            hoursInfo={businessDetails.hours}
-          />
-        </TabsContent>
-
-        <TabsContent value="more" className="space-y-4" forceMount={true}>
-          <MoreSection 
-            additionalInfo={{
-              payments: "Cash, Credit Card, UPI, Net Banking",
-              languages: "English, Hindi, Tamil",
-              accessibility: "Wheelchair accessible entrance, Accessible parking"
-            }}
-          />
-        </TabsContent>
       </div>
     </div>
   );
