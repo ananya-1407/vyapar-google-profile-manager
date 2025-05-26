@@ -11,6 +11,7 @@ import BusinessLayout from "./pages/BusinessLayout";
 import BusinessDetails from "./pages/BusinessDetails";
 import CustomerInteractions from "./pages/CustomerInteractions";
 import GoogleInsights from "./pages/GoogleInsights";
+import GoogleBusinessInsights from "./pages/GoogleBusinessInsights";
 import NotFound from "./pages/NotFound";
 import BusinessSelection from "./pages/BusinessSelection";
 
@@ -49,6 +50,7 @@ const App = () => (
             <Route path="details" element={<BusinessDetails />} />
             <Route path="interactions" element={<CustomerInteractions />} />
             <Route path="insights" element={<GoogleInsights />} />
+            <Route path="business-insights" element={<GoogleBusinessInsights />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>
