@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import GoogleLogin from "./pages/GoogleLogin";
 import BusinessLayout from "./pages/BusinessLayout";
+import BusinessDashboard from "./pages/BusinessDashboard";
 import BusinessDetails from "./pages/BusinessDetails";
 import CustomerInteractions from "./pages/CustomerInteractions";
 import GoogleInsights from "./pages/GoogleInsights";

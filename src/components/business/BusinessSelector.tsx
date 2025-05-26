@@ -51,8 +51,11 @@ const BusinessSelector = ({ businessId, onCreateBusiness }: BusinessSelectorProp
     const pathParts = currentPath.split('/');
     const currentTab = pathParts[pathParts.length - 1];
     
+    // Default to dashboard if no specific tab or if on root business path
+    const targetTab = currentTab && currentTab !== selectedBusinessId ? currentTab : 'dashboard';
+    
     // Navigate to the same tab but for the new business
-    navigate(`/business/${selectedBusinessId}/${currentTab}`);
+    navigate(`/business/${selectedBusinessId}/${targetTab}`);
   };
 
   return (

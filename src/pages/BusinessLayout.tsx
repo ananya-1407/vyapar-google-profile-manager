@@ -26,6 +26,7 @@ const BusinessLayout = () => {
 
   // Determine current active page for breadcrumb
   const getActivePage = () => {
+    if (location.pathname.includes("/dashboard")) return "Dashboard";
     if (location.pathname.includes("/details")) return "Business Details";
     if (location.pathname.includes("/interactions")) return "Customer Interactions";
     if (location.pathname.includes("/insights")) return "Google Insights";
@@ -34,7 +35,7 @@ const BusinessLayout = () => {
 
   const breadcrumbItems = [
     { label: "Home", path: "/" },
-    { label: currentBusiness.name, path: `/business/${businessId}/details` },
+    { label: currentBusiness.name, path: `/business/${businessId}/dashboard` },
     { label: getActivePage(), path: location.pathname }
   ];
 
@@ -45,6 +46,12 @@ const BusinessLayout = () => {
   });
 
   const tabs = [
+    {
+      id: "dashboard",
+      label: "Dashboard",
+      icon: <TrendingUp className="h-4 w-4" />,
+      path: `/business/${businessId}/dashboard`,
+    },
     {
       id: "details",
       label: "Business Details",
@@ -71,10 +78,10 @@ const BusinessLayout = () => {
     navigate(tabs.find(tab => tab.id === tabId)?.path || '');
   };
 
-  // On component mount, navigate to the current business's details page if no specific tab is selected
+  // On component mount, navigate to the current business's dashboard page if no specific tab is selected
   useEffect(() => {
     if (location.pathname === `/business/${businessId}`) {
-      navigate(`/business/${businessId}/details`);
+      navigate(`/business/${businessId}/dashboard`);
     }
   }, [businessId, location.pathname, navigate]);
 
