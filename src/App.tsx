@@ -41,13 +41,14 @@ const App = () => (
             path="/" 
             element={
               isLoggedIn() ? 
-                <Navigate to={`/business/${getDefaultBusinessId()}/details`} replace /> : 
+                <Navigate to={`/business/${getDefaultBusinessId()}/dashboard`} replace /> : 
                 <Index />
             } 
           />
           <Route path="/login" element={<GoogleLogin />} />
           <Route path="/select-business" element={<BusinessSelection />} />
           <Route path="/business/:businessId" element={<BusinessLayout />}>
+            <Route path="dashboard" element={<BusinessDashboard />} />
             <Route path="details" element={<BusinessDetails />} />
             <Route path="interactions" element={<CustomerInteractions />} />
             <Route path="insights" element={<GoogleInsights />} />
