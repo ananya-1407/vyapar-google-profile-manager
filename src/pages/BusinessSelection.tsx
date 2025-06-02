@@ -91,17 +91,17 @@ const BusinessSelection = () => {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <NavBar />
-      <div className="container mx-auto py-6 px-4 flex-1">
+      <div className="container mx-auto py-6 px-4 flex-1 max-w-4xl">
         <div className="flex justify-between items-center mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-vyapar-text">Select Business Profile</h1>
-            <p className="text-vyapar-text-secondary mt-1">
+            <h1 className="text-2xl font-bold text-gray-900">Select Business Profile</h1>
+            <p className="text-gray-600 mt-1">
               Choose a business profile to manage or create a new one
             </p>
           </div>
           <Button 
             variant="outline"
-            className="border-gray-300 text-vyapar-text-secondary hover:bg-gray-100 hover:text-vyapar-text flex items-center gap-2" 
+            className="border-gray-300 text-gray-700 hover:bg-gray-100 hover:text-gray-900 flex items-center gap-2" 
             onClick={handleCreateBusiness}
           >
             <Plus className="h-4 w-4" />
@@ -114,7 +114,7 @@ const BusinessSelection = () => {
             <LoadingSpinner size="large" />
           </div>
         ) : businesses.length > 0 ? (
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          <div className="space-y-4">
             {businesses.map((business) => (
               <BusinessCard
                 key={business.id}
