@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -15,6 +14,7 @@ import GoogleInsights from "./pages/GoogleInsights";
 import GoogleBusinessInsights from "./pages/GoogleBusinessInsights";
 import NotFound from "./pages/NotFound";
 import BusinessSelection from "./pages/BusinessSelection";
+import SmartReviewQR from "./pages/SmartReviewQR";
 
 const queryClient = new QueryClient();
 
@@ -53,6 +53,7 @@ const App = () => (
             <Route path="interactions" element={<CustomerInteractions />} />
             <Route path="insights" element={<GoogleInsights />} />
             <Route path="business-insights" element={<GoogleBusinessInsights />} />
+            <Route path="smart-qr" element={<SmartReviewQR />} />
           </Route>
           <Route path="*" element={<NotFound />} />
         </Routes>

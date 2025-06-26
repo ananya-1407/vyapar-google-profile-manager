@@ -1,7 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { Outlet, useParams, useLocation, useNavigate } from "react-router-dom";
-import { Info, MessageSquare, ChartBar, TrendingUp } from "lucide-react";
+import { Info, MessageSquare, ChartBar, TrendingUp, QrCode } from "lucide-react";
 import NavBar from "@/components/NavBar";
 import Breadcrumbs from "@/components/Breadcrumbs";
 import ProfileTabs from "@/components/ProfileTabs";
@@ -69,6 +68,12 @@ const BusinessLayout = () => {
       label: "Google Insights",
       icon: <ChartBar className="h-4 w-4" />,
       path: `/business/${businessId}/insights`,
+    },
+    {
+      id: "smart-qr",
+      label: "Smart Review QR",
+      icon: <QrCode className="h-4 w-4" />,
+      path: `/business/${businessId}/smart-qr`,
     },
   ];
 
