@@ -19,6 +19,7 @@ interface StatsOverviewProps {
   analytics: {
     totalScans: number;
     completionRate: number;
+    completionCount: number;
     avgRating: number;
     googleAvgRating: number;
   };
@@ -61,11 +62,12 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
                       <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs">Percentage of customers who completed giving feedback after scanning the QR code</p>
+                      <p className="text-xs">Number and percentage of customers who completed giving feedback after scanning the QR code</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <p className="text-2xl font-bold">{analytics.completionRate}%</p>
+                <p className="text-2xl font-bold">{analytics.completionCount}</p>
+                <p className="text-sm text-gray-500">({analytics.completionRate}%)</p>
               </div>
               <CheckCircle className="h-8 w-8 text-green-500" />
             </div>
