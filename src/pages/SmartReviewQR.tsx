@@ -18,6 +18,7 @@ const SmartReviewQR = () => {
     totalScans: 284,
     completionRate: 67,
     avgRating: 3.8,
+    googleAvgRating: 4.2,
     googleRedirects: 156,
     privateFeedback: 89,
     responseRate: 45,

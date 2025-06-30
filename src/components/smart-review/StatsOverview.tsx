@@ -5,7 +5,7 @@ import {
   Eye, 
   CheckCircle,
   Star,
-  Reply,
+  MapPin,
   Info
 } from "lucide-react";
 import {
@@ -20,7 +20,7 @@ interface StatsOverviewProps {
     totalScans: number;
     completionRate: number;
     avgRating: number;
-    responseRate: number;
+    googleAvgRating: number;
   };
 }
 
@@ -33,13 +33,13 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-1 mb-1">
-                  <p className="text-sm font-medium text-gray-600">Total Scans</p>
+                  <p className="text-sm font-medium text-gray-600">QR Code Scans</p>
                   <Tooltip>
                     <TooltipTrigger>
                       <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs">Number of times your QR code has been scanned by customers</p>
+                      <p className="text-xs">Total number of times customers have scanned your Smart Review QR code</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -55,13 +55,13 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-1 mb-1">
-                  <p className="text-sm font-medium text-gray-600">Completion Rate</p>
+                  <p className="text-sm font-medium text-gray-600">Review Completion</p>
                   <Tooltip>
                     <TooltipTrigger>
                       <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs">Percentage of customers who completed the feedback form after scanning</p>
+                      <p className="text-xs">Percentage of customers who completed giving feedback after scanning the QR code</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -77,13 +77,13 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-1 mb-1">
-                  <p className="text-sm font-medium text-gray-600">Avg Rating</p>
+                  <p className="text-sm font-medium text-gray-600">Private Feedback</p>
                   <Tooltip>
                     <TooltipTrigger>
                       <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs">Average star rating from all customer feedback received</p>
+                      <p className="text-xs">Average rating from private feedback collected through your QR code</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
@@ -99,19 +99,19 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-1 mb-1">
-                  <p className="text-sm font-medium text-gray-600">Response Rate</p>
+                  <p className="text-sm font-medium text-gray-600">Google Rating</p>
                   <Tooltip>
                     <TooltipTrigger>
                       <Info className="h-3 w-3 text-gray-400 hover:text-gray-600" />
                     </TooltipTrigger>
                     <TooltipContent>
-                      <p className="text-xs">Percentage of customer feedback you have responded to</p>
+                      <p className="text-xs">Your current average rating on Google Maps and Google Business</p>
                     </TooltipContent>
                   </Tooltip>
                 </div>
-                <p className="text-2xl font-bold">{analytics.responseRate}%</p>
+                <p className="text-2xl font-bold">{analytics.googleAvgRating}</p>
               </div>
-              <Reply className="h-8 w-8 text-purple-500" />
+              <MapPin className="h-8 w-8 text-red-500" />
             </div>
           </CardContent>
         </Card>
