@@ -44,7 +44,8 @@ const SmartReviewQR = () => {
       created_at: "2 hours ago",
       status: "pending",
       responded: false,
-      source_ip: "192.168.1.1"
+      source_ip: "192.168.1.1",
+      important: true
     },
     {
       id: "f2",
@@ -57,7 +58,8 @@ const SmartReviewQR = () => {
       status: "responded",
       responded: true,
       response_text: "Thank you for your feedback. We're working on improvements.",
-      source_ip: "192.168.1.2"
+      source_ip: "192.168.1.2",
+      important: false
     },
     {
       id: "f3",
@@ -70,7 +72,8 @@ const SmartReviewQR = () => {
       status: "resolved",
       responded: true,
       response_text: "We sincerely apologize and would like to make this right. Please contact us directly.",
-      source_ip: "192.168.1.3"
+      source_ip: "192.168.1.3",
+      important: true
     }
   ];
 

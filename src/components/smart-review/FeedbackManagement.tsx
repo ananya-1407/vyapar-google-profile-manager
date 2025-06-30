@@ -30,6 +30,7 @@ interface FeedbackItem {
   responded: boolean;
   response_text?: string;
   source_ip: string;
+  important: boolean;
 }
 
 interface FeedbackManagementProps {
@@ -60,18 +61,37 @@ const FeedbackManagement = ({
     ));
   };
 
-  const getStatusBadge = (status: string, responded: boolean) => {
+  const getStatusBadge = (status: string, responded: boolean, important: boolean) => {
+    const badges = [];
+    
     if (status === "resolved") {
-      return <Badge className="bg-green-100 text-green-800">Resolved</Badge>;
+      badges.push(<Badge key="resolved" className="bg-green-100 text-green-800">Resolved</Badge>);
+    } else if (responded) {
+      badges.push(<Badge key="responded" className="bg-blue-100 text-blue-800">Responded</Badge>);
+    } else {
+      badges.push(<Badge key="pending" className="bg-orange-100 text-orange-800">Pending</Badge>);
     }
-    if (responded) {
-      return <Badge className="bg-blue-100 text-blue-800">Responded</Badge>;
+    
+    if (important) {
+      badges.push(<Badge key="important" className="bg-red-100 text-red-800 ml-1">Important</Badge>);
     }
-    return <Badge className="bg-orange-100 text-orange-800">Pending</Badge>;
+    
+    return <div className="flex flex-wrap gap-1">{badges}</div>;
   };
 
   const filteredFeedback = feedbackData.filter(feedback => {
-    const matchesFilter = feedbackFilter === "all" || feedback.status === feedbackFilter;
+    let matchesFilter = false;
+    
+    if (feedbackFilter === "all") {
+      matchesFilter = true;
+    } else if (feedbackFilter === "pending") {
+      matchesFilter = feedback.status === "pending";
+    } else if (feedbackFilter === "important") {
+      matchesFilter = feedback.important;
+    } else if (feedbackFilter === "resolved") {
+      matchesFilter = feedback.status === "resolved";
+    }
+    
     const matchesSearch = feedback.comment.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          feedback.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
                          feedback.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
@@ -110,10 +130,10 @@ const FeedbackManagement = ({
           </Button>
           <Button
             size="sm"
-            variant={feedbackFilter === "responded" ? "default" : "outline"}
-            onClick={() => setFeedbackFilter("responded")}
+            variant={feedbackFilter === "important" ? "default" : "outline"}
+            onClick={() => setFeedbackFilter("important")}
           >
-            Responded
+            Important
           </Button>
           <Button
             size="sm"
@@ -153,7 +173,7 @@ const FeedbackManagement = ({
                   <p className="text-sm line-clamp-2">{feedback.comment}</p>
                 </TableCell>
                 <TableCell>
-                  {getStatusBadge(feedback.status, feedback.responded)}
+                  {getStatusBadge(feedback.status, feedback.responded, feedback.important)}
                 </TableCell>
                 <TableCell className="text-sm text-gray-500">
                   {feedback.created_at}
@@ -163,9 +183,8 @@ const FeedbackManagement = ({
                     {feedback.status !== "resolved" && (
                       <Button
                         size="sm"
-                        variant={feedback.status === "resolved" ? "default" : "outline"}
+                        variant="outline"
                         onClick={() => onMarkResolved(feedback.id)}
-                        className={feedback.status === "resolved" ? "bg-green-600 hover:bg-green-700" : ""}
                       >
                         <CheckCircle className="h-3 w-3" />
                       </Button>
