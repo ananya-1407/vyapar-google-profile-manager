@@ -21,7 +21,9 @@ interface StatsOverviewProps {
     completionRate: number;
     completionCount: number;
     avgRating: number;
+    privateFeedbackCount: number;
     googleAvgRating: number;
+    googleReviewCount: number;
   };
 }
 
@@ -90,6 +92,7 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
                   </Tooltip>
                 </div>
                 <p className="text-2xl font-bold">{analytics.avgRating}</p>
+                <p className="text-sm text-gray-500">({analytics.privateFeedbackCount} feedbacks)</p>
               </div>
               <Star className="h-8 w-8 text-yellow-500" />
             </div>
@@ -112,6 +115,7 @@ const StatsOverview = ({ analytics }: StatsOverviewProps) => {
                   </Tooltip>
                 </div>
                 <p className="text-2xl font-bold">{analytics.googleAvgRating}</p>
+                <p className="text-sm text-gray-500">({analytics.googleReviewCount} reviews)</p>
               </div>
               <MapPin className="h-8 w-8 text-red-500" />
             </div>
