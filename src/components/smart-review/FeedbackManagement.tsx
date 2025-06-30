@@ -7,7 +7,6 @@ import { Input } from "@/components/ui/input";
 import { 
   Star,
   Search,
-  Reply,
   CheckCircle
 } from "lucide-react";
 import { 
@@ -49,7 +48,6 @@ const FeedbackManagement = ({
   setFeedbackFilter, 
   searchTerm, 
   setSearchTerm, 
-  onReplyToFeedback, 
   onMarkResolved 
 }: FeedbackManagementProps) => {
   const renderStars = (rating: number) => {
@@ -75,7 +73,9 @@ const FeedbackManagement = ({
   const filteredFeedback = feedbackData.filter(feedback => {
     const matchesFilter = feedbackFilter === "all" || feedback.status === feedbackFilter;
     const matchesSearch = feedback.comment.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         feedback.customerName.toLowerCase().includes(searchTerm.toLowerCase());
+                         feedback.customerName.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         feedback.phone.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         feedback.email.toLowerCase().includes(searchTerm.toLowerCase());
     return matchesFilter && matchesSearch;
   });
 
@@ -86,7 +86,7 @@ const FeedbackManagement = ({
           <div className="relative">
             <Search className="absolute left-3 top-3 h-4 w-4 text-gray-400" />
             <Input 
-              placeholder="Search feedback..." 
+              placeholder="Search feedback by name, phone, email, or comment..." 
               className="pl-10"
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
@@ -160,20 +160,22 @@ const FeedbackManagement = ({
                 </TableCell>
                 <TableCell>
                   <div className="flex gap-1">
-                    {!feedback.responded && (
-                      <Button
-                        size="sm"
-                        variant="outline"
-                        onClick={() => onReplyToFeedback(feedback.id)}
-                      >
-                        <Reply className="h-3 w-3" />
-                      </Button>
-                    )}
                     {feedback.status !== "resolved" && (
                       <Button
                         size="sm"
-                        variant="outline"
+                        variant={feedback.status === "resolved" ? "default" : "outline"}
                         onClick={() => onMarkResolved(feedback.id)}
+                        className={feedback.status === "resolved" ? "bg-green-600 hover:bg-green-700" : ""}
+                      >
+                        <CheckCircle className="h-3 w-3" />
+                      </Button>
+                    )}
+                    {feedback.status === "resolved" && (
+                      <Button
+                        size="sm"
+                        variant="default"
+                        className="bg-green-600 hover:bg-green-700"
+                        disabled
                       >
                         <CheckCircle className="h-3 w-3" />
                       </Button>
