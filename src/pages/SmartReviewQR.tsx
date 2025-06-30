@@ -5,19 +5,10 @@ import { useToast } from "@/hooks/use-toast";
 import EducationalSection from "@/components/smart-review/EducationalSection";
 import StatsOverview from "@/components/smart-review/StatsOverview";
 import QuickActions from "@/components/smart-review/QuickActions";
-import QRManagement from "@/components/smart-review/QRManagement";
 import FeedbackManagement from "@/components/smart-review/FeedbackManagement";
 import AnalyticsView from "@/components/smart-review/AnalyticsView";
 
 const SmartReviewQR = () => {
-  const [qrCustomization, setQrCustomization] = useState({
-    primaryColor: "#3B82F6",
-    secondaryColor: "#1E40AF",
-    logoEnabled: true,
-    borderStyle: "rounded",
-    callToAction: "Rate your experience with us!"
-  });
-  
   const [feedbackFilter, setFeedbackFilter] = useState("all");
   const [searchTerm, setSearchTerm] = useState("");
   const { toast } = useToast();
@@ -110,9 +101,8 @@ const SmartReviewQR = () => {
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-4">
+        <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="overview">Overview</TabsTrigger>
-          <TabsTrigger value="qr-management">QR Management</TabsTrigger>
           <TabsTrigger value="feedback">Feedback</TabsTrigger>
           <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
@@ -123,14 +113,6 @@ const SmartReviewQR = () => {
           <QuickActions 
             feedbackData={feedbackData} 
             onDownloadQR={handleDownloadQR} 
-          />
-        </TabsContent>
-
-        <TabsContent value="qr-management" className="space-y-6">
-          <QRManagement 
-            qrCustomization={qrCustomization}
-            setQrCustomization={setQrCustomization}
-            onDownloadQR={handleDownloadQR}
           />
         </TabsContent>
 

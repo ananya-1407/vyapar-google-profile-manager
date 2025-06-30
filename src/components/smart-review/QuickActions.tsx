@@ -53,13 +53,27 @@ const QuickActions = ({ feedbackData, onDownloadQR }: QuickActionsProps) => {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <QrCode className="h-5 w-5" />
-            Quick QR Actions
+            Your Smart Review QR Code
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          <div className="bg-gray-50 p-4 rounded-lg text-center">
-            <QrCode className="h-24 w-24 mx-auto mb-2 text-gray-400" />
-            <p className="text-sm text-gray-600 mb-4">Your Smart Review QR Code</p>
+          <div className="bg-white p-6 rounded-lg border-2 border-dashed border-gray-200 text-center">
+            {/* QR Code Preview - using CSS to create a QR-like pattern */}
+            <div className="mx-auto mb-4 w-32 h-32 bg-white border-2 border-gray-800 rounded-lg p-2">
+              <div className="w-full h-full bg-black rounded" style={{
+                backgroundImage: `
+                  repeating-linear-gradient(0deg, transparent, transparent 2px, black 2px, black 4px),
+                  repeating-linear-gradient(90deg, transparent, transparent 2px, black 2px, black 4px)
+                `,
+                backgroundSize: '8px 8px'
+              }}>
+                <div className="w-6 h-6 bg-black rounded-sm absolute top-2 left-2"></div>
+                <div className="w-6 h-6 bg-black rounded-sm absolute top-2 right-2"></div>
+                <div className="w-6 h-6 bg-black rounded-sm absolute bottom-2 left-2"></div>
+              </div>
+            </div>
+            <p className="text-sm font-medium mb-2">Rate your experience with us!</p>
+            <p className="text-xs text-gray-500 mb-4">https://vyapar.in/review/abc123</p>
             <div className="flex gap-2 justify-center">
               <Button size="sm" onClick={onDownloadQR}>
                 <Download className="h-3 w-3 mr-1" />

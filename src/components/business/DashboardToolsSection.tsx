@@ -1,6 +1,4 @@
-
 import React from "react";
-import MagicalQRSection from "./MagicalQRSection";
 import PrivateReviewsSection from "./PrivateReviewsSection";
 import MagicalReviewTools from "./MagicalReviewTools";
 import RecentActivityFeed from "./RecentActivityFeed";
@@ -15,10 +13,10 @@ const DashboardToolsSection = () => {
       {/* Smart Review Widget - New dashboard widget */}
       <SmartReviewWidget businessId={businessId || ""} />
       
-      {/* New Magical QR and Private Reviews Row */}
+      {/* Private Reviews Row */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <MagicalQRSection />
         <PrivateReviewsSection />
+        {/* Empty space where MagicalQRSection was */}
       </div>
       
       {/* Existing Tools Row */}
