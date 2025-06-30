@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
@@ -108,10 +107,9 @@ const SmartReviewQR = () => {
       </div>
 
       <Tabs defaultValue="overview" className="w-full">
-        <TabsList className="grid w-full grid-cols-3">
+        <TabsList className="grid w-full grid-cols-2">
           <TabsTrigger value="overview">Overview</TabsTrigger>
           <TabsTrigger value="feedback">Feedback</TabsTrigger>
-          <TabsTrigger value="analytics">Analytics</TabsTrigger>
         </TabsList>
 
         <TabsContent value="overview" className="space-y-6">
@@ -121,6 +119,10 @@ const SmartReviewQR = () => {
             feedbackData={feedbackData} 
             onDownloadQR={handleDownloadQR} 
           />
+          <div>
+            <h2 className="text-xl font-semibold text-gray-900 mb-4">Analytics & Performance</h2>
+            <AnalyticsView analytics={analytics} />
+          </div>
         </TabsContent>
 
         <TabsContent value="feedback" className="space-y-6">
@@ -133,10 +135,6 @@ const SmartReviewQR = () => {
             onReplyToFeedback={handleReplyToFeedback}
             onMarkResolved={handleMarkResolved}
           />
-        </TabsContent>
-
-        <TabsContent value="analytics" className="space-y-6">
-          <AnalyticsView analytics={analytics} />
         </TabsContent>
       </Tabs>
     </div>
